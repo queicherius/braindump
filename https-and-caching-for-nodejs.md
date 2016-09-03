@@ -18,7 +18,7 @@ apt-get install nginx
 
 **`/etc/nginx/sites-enabled/default`**
 
-```conf
+```nginxconf
 # Don't send the nginx version number in error pages and Server header
 server_tokens off;
 
@@ -96,7 +96,7 @@ apt-get install varnish
 
 **`/etc/nginx/sites-enabled/default`**
 
-```conf
+```nginxconf
 # Ensure that the default values are in here
 backend default {
     .host = "127.0.0.1";
@@ -106,7 +106,7 @@ backend default {
 
 **`/etc/nginx/sites-enabled/default`**
 
-```conf
+```nginxconf
 # Make sure that "Alternative 2" is used and 
 # Varnish is listening on the default port 6081
 DAEMON_OPTS="-a :6081
@@ -115,7 +115,7 @@ DAEMON_OPTS="-a :6081
 
 **`/etc/nginx/sites-enabled/default`**
 
-```conf
+```nginxconf
   location / {
     proxy_pass http://127.0.0.1:6081;
 ```
