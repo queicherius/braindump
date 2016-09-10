@@ -2,7 +2,7 @@
 
 Here, we're using [Let's Encrypt](https://letsencrypt.org/) for certificates, [Nginx](https://www.nginx.com/) as a [TLS Termination proxy](https://en.wikipedia.org/wiki/TLS_termination_proxy) and [Varnish](https://www.varnish-cache.org) for caching. Assuming the domain name `mydomain.com` (you have to change that) and your Node.JS app is running on port `8080` (but you can change that!).
 
-## Setting up SSL
+## SSL
 
 ```bash
 # Create the certificate with letsencrypt
@@ -37,7 +37,7 @@ server {
   listen 443 ssl;
   server_name mydomain.com;
 
-  # --- SSL CONFIGURATION ------------------------------------
+  # --- SSL CONFIGURATION ---------------------------------
 
   # SSL certificate
   ssl_certificate /etc/letsencrypt/live/mydomain.com/fullchain.pem;
@@ -67,7 +67,13 @@ server {
   # Enable HTTP Strict Transport Security to avoid ssl stripping
   add_header Strict-Transport-Security "max-age=31622400; includeSubDomains; preload" always;
 
-  # --- SERVICE CONFIGURATION ------------------------------------
+  # --- LET'S ENCRYPT CONFIGURATION -----------------------
+
+  location ~ /.well-known {
+    root /etc/letsencrypt/webroot;
+  }
+
+  # --- SERVICE CONFIGURATION -----------------------------
 
   gzip on;
 
@@ -88,7 +94,25 @@ service nginx restart
 
 At this point the page should be reachable with https and redirect to https when you try and use http. You should also get a shiny A+ on https://www.ssllabs.com.
 
-## Setting up Varnish
+
+## Certificate renewal
+
+```bash
+# Create the webroot directory
+mkdir -p /etc/letsencrypt/webroot
+
+# Check if the renewal is working
+letsencrypt renew --dry-run --agree-tos -a webroot --webroot-path=/etc/letsencrypt/webroot
+
+# Add to crontab
+crontab -e
+```
+
+```crontab
+17 2,12 * * * /usr/bin/letsencrypt renew --agree-tos -a webroot --webroot-path=/etc/letsencrypt/webroot >> /var/log/le-renew.log
+```
+
+## Varnish
 
 ```bash
 apt-get install varnish
@@ -129,7 +153,7 @@ Now Nginx is listening on port 80 and 433, ["unwrapping" the SSL request](https:
 
 ## Firewall rules
 
-Now the only thing missing is setting up the firewall rules so that you can only reach the public nginx server, and not the internal ports, e.g. using `ufw`:
+Now the only thing missing is setting up the firewall rules so that you can only reach the public nginx server and not the internal ports, e.g. using `ufw`:
 
 ```bash
 ufw allow OpenSSH
