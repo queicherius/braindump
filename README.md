@@ -8,6 +8,7 @@
 - [Simple mail redirection server](./simple-mail-redirection-server.md)
 - [Log parsing with GoAccess](./log-parsing-with-goaccess.md)
 - [Free backup service for ESXi](./free-backup-service-for-esxi.md)
+- [Resize disk of a Linux LVM](./resize-disk-of-a-linux-lvm.md)
 
 **Experiments**
 
