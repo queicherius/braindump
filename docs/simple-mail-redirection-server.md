@@ -10,6 +10,8 @@ apt-get install postfix
 
 When the installer asks you for the type of mail server you want to run, choose "Internet Size" and fill in your domain as the "Fully qualified domain name".
 
+---
+
 ### Configure postfix
 
 **`/etc/postfix/main.cf`**
@@ -36,6 +38,8 @@ postmap /etc/postfix/virtual
 service postfix restart
 service postifx status
 ```
+
+---
 
 ### Firewall access
 

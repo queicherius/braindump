@@ -2,7 +2,7 @@
 
 This is a step by step guide of increasing a Linux LVM, e.g. after resizing a harddrive of a virtual server managed by ESXi. Mainly a summary of [this guide](https://www.rootusers.com/how-to-increase-the-size-of-a-linux-lvm-by-adding-a-new-disk/).
 
-**1. Partition the disk**
+### 1. Partition the disk
 
 First, check your existing partitions so you can later note which one is the new one:
 
@@ -25,7 +25,9 @@ fdisk -l
 
 Now, you should see your new partition (called `Linux LVM`). You will need the device for the next steps (e.g. `/dev/sda3`). We will need the new partition to be available everywhere, so we'll have to `reboot` the server.
 
-**2. Extend the volume group**
+---
+
+### 2. Extend the volume group
 
 ```bash
 # Create the physical volume for later use
@@ -42,7 +44,9 @@ vgextend raw-ubuntu-vg /dev/sda3
 pvscan
 ```
 
-**3. Extend the logical volume**
+---
+
+### 3. Extend the logical volume
 
 ```bash
 # Show the logical volumes
@@ -53,7 +57,9 @@ lvdisplay
 lvextend /dev/raw-ubuntu-vg/root /dev/sda3
 ```
 
-**4. Resize the file system**
+---
+
+### 4. Resize the file system
 
 ```bash
 # Resize the file system

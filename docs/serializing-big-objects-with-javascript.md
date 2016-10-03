@@ -13,7 +13,7 @@ I want to serialize a big (100mb) javascript object into a string using node (fo
 
 ---
 
-#### JSON
+### JSON
 
 - :+1: Native, no module needed
 - :+1: Pretty fast (~1s)
@@ -21,27 +21,27 @@ I want to serialize a big (100mb) javascript object into a string using node (fo
 
 ---
 
-#### [msgpack](https://www.npmjs.com/package/msgpack)
+### [msgpack](https://www.npmjs.com/package/msgpack)
 
 - :-1: Slow (about 5 times slower than JSON)
 - :-1: Blocking the event loop
 
 ---
 
-#### [BSON](https://www.npmjs.com/package/bson)
+### [BSON](https://www.npmjs.com/package/bson)
 
 - :-1: Doesnt handle objects bigger than 17mb in the JS version
 - :-1: Blocking the event loop
 
 ---
 
-#### [Response.json()](http://azimi.me/2015/07/30/non-blocking-async-json-parse.html?utm_source=javascriptweekly&utm_medium=email)
+### [Response.json()](http://azimi.me/2015/07/30/non-blocking-async-json-parse.html?utm_source=javascriptweekly&utm_medium=email)
 
 - :-1: Not available in node.js and polyfills use native JSON anyway
 
 ---
 
-#### [json-parse-stream](https://www.npmjs.com/package/json-parse-stream)
+### [json-parse-stream](https://www.npmjs.com/package/json-parse-stream)
  
 - :-1: EXTREMELY slow (300+ times slower than JSON)
 - :-1: Overhead of building the object again
@@ -49,7 +49,7 @@ I want to serialize a big (100mb) javascript object into a string using node (fo
 
 ---
 
-#### [jsonparse](https://github.com/creationix/jsonparse)
+### [jsonparse](https://github.com/creationix/jsonparse)
 
 - :-1: Slow (about 30 times slower than JSON)
 - :-1: Even tho its streaming, it blocks the event loop
@@ -57,7 +57,7 @@ I want to serialize a big (100mb) javascript object into a string using node (fo
 
 ---
 
-#### [json-streams](https://github.com/Floby/node-json-streams.git)
+### [json-streams](https://github.com/Floby/node-json-streams.git)
 
 - :-1: Seems to be not supported on Node 5.x, tests fail
 

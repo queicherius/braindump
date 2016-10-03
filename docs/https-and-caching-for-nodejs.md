@@ -2,7 +2,7 @@
 
 Here, we're using [Let's Encrypt](https://letsencrypt.org/) for certificates, [Nginx](https://www.nginx.com/) as a [TLS Termination proxy](https://en.wikipedia.org/wiki/TLS_termination_proxy) and [Varnish](https://www.varnish-cache.org) for caching. Assuming the domain name `mydomain.com` (you have to change that) and your Node.JS app is running on port `8080` (but you can change that!).
 
-## SSL
+### SSL
 
 ```bash
 # Create the certificate with letsencrypt
@@ -94,8 +94,9 @@ service nginx restart
 
 At this point the page should be reachable with https and redirect to https when you try and use http. You should also get a shiny A+ on https://www.ssllabs.com.
 
+---
 
-## Certificate renewal
+### Certificate renewal
 
 ```bash
 # Create the webroot directory
@@ -112,7 +113,9 @@ crontab -e
 17 2,12 * * * /usr/bin/letsencrypt renew --agree-tos -a webroot --webroot-path=/etc/letsencrypt/webroot >> /var/log/le-renew.log
 ```
 
-## Varnish
+---
+
+### Varnish
 
 ```bash
 apt-get install varnish
@@ -170,7 +173,9 @@ service nginx restart
 
 Now Nginx is listening on port 80 and 433, ["unwrapping" the SSL request](https://en.wikipedia.org/wiki/TLS_termination_proxy), giving it to Varnish, which caches the responses from our Node.JS app.
 
-## Firewall rules
+---
+
+### Firewall rules
 
 Now the only thing missing is setting up the firewall rules so that you can only reach the public nginx server and not the internal ports, e.g. using `ufw`:
 

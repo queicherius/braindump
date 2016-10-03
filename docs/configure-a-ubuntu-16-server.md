@@ -1,4 +1,4 @@
-## Configure a Ubuntu 16 server
+# Configure a Ubuntu 16 server
 
 This is a general setup to configure a raw Ubuntu 16.04.1 LTS system. It is a mix of security and comfort and adresses most configuration issues that exist within a stock install.
 
@@ -22,6 +22,8 @@ logout
 userdel -r david
 ```
 
+---
+
 ### Hostname
 
 We can configure the hostname to match what we want. I usually use a naming scheme of `application.server`, so e.g. `gw2efficiency.mongo`:
@@ -30,6 +32,8 @@ We can configure the hostname to match what we want. I usually use a naming sche
 nano /etc/hostname
 reboot
 ```
+
+---
 
 ### Network interface names
 
@@ -42,6 +46,8 @@ update-grub
 reboot
 ifconfig -a
 ```
+
+---
 
 ### Static IP
 
@@ -65,6 +71,8 @@ ipdown -a && ifup -a
 ping google.com
 ```
 
+---
+
 ### Update the system
 
 Now, that we are connected to the internet, we'll download a bunch of updates and install some essentials.
@@ -78,6 +86,8 @@ apt-get install nano build-essential htop git
 ```
 
 > **Note:** Since we changed the "grub" file, it might ask you if you want to keep your version or update it. Just check the diff to see if everything is in order.
+
+---
 
 ### SSH-Key only login
 
@@ -109,6 +119,8 @@ service ssh restart
 apt-get install fail2ban
 ```
 
+---
+
 ### Timezone
 
 The timezone should be set to UTC (for your own sanity).
@@ -121,6 +133,8 @@ ln -s /usr/share/zoneinfo/UTC /etc/localtime
 date
 date -u
 ```
+
+---
 
 ### Firewall
 

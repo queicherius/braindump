@@ -2,8 +2,6 @@
 
 These are tiny guides to install and configure programs that are not installed by default. This assumes a pre-configured Ubuntu 16 system, e.g. by following [this guide](./configure-a-ubuntu-16-server.md) 
 
----
-
 ### Node.js
 
 ```bash

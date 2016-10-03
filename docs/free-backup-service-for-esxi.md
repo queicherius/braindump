@@ -16,6 +16,8 @@ As the first step, mount the NFS server via the vSphere Client:
 6. Folder: The path on your NFS server (on OVH something like `/export/ftpbackup/...`)
 7. Datastore Name: `Ghetto`
 
+---
+
 ### Install ghettoVCB
 
 Since you will need SSH access to the ESXi host server, you have to enable that via the following steps:
@@ -38,6 +40,8 @@ git clone https://github.com/lamw/ghettoVCB
 cd ghettoVCB
 scp * root@youresxiip:/ghettoVCB
 ```
+
+---
 
 ### Configure ghettoVCB
 
@@ -98,6 +102,8 @@ After the configuration is done, we can check if the backup is theoretically wor
 ```bash
 /ghettoVCB/ghettoVCB.sh -f /ghettoVCB/vms_to_backup -g /ghettoVCB/ghettoVCB.conf -l /ghettoVCB/ghettoVCB.log -d dryrun
 ```
+
+---
 
 ### Setup the backup interval
 

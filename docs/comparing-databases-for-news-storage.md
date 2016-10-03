@@ -4,9 +4,7 @@ When testing performance, all tests were conducted using the same pre-generated 
 
 **Result: [Elasticsearch](#elasticsearch) is the clear winner with a good documentation, amazing speed, a perfect feature set, praise from people in the industry, no setup time and lots of tooling support.**
 
----
-
-#### [MariaDB / MySQL](https://mariadb.org/)
+### [MariaDB / MySQL](https://mariadb.org/)
 
 > One of the most popular database servers. Made by the original developers of MySQL. Guaranteed to stay open source.
 
@@ -18,7 +16,7 @@ When testing performance, all tests were conducted using the same pre-generated 
 
 ----
 
-#### [PostgreSQL](http://www.postgresql.org/)
+### [PostgreSQL](http://www.postgresql.org/)
 
 > PostgreSQL is a powerful, open source object-relational database system. It has more than 15 years of active development and a proven architecture that has earned it a strong reputation for reliability, data integrity, and correctness.
 
@@ -29,7 +27,7 @@ When testing performance, all tests were conducted using the same pre-generated 
 
 ---
 
-#### [MongoDB](https://www.mongodb.com/)
+### [MongoDB](https://www.mongodb.com/)
 
 > MongoDB 3.2 is a giant leap forward that helps organizations standardize on a single, modern database for their new, mission-critical applications.
 
@@ -43,7 +41,7 @@ When testing performance, all tests were conducted using the same pre-generated 
 
 ----
 
-#### [Apache Solr](http://lucene.apache.org/solr/)
+### [Apache Solr](http://lucene.apache.org/solr/)
 
 > Solr is a popular, blazing-fast, open source enterprise search platform
 
@@ -57,7 +55,7 @@ When testing performance, all tests were conducted using the same pre-generated 
 
 ----
 
-#### [Sphinx](http://sphinxsearch.com/)
+### [Sphinx](http://sphinxsearch.com/)
 
 > Sphinx is an open source full text search server, designed from the ground up with performance, relevance (aka search quality), and integration simplicity in mind.
 
@@ -71,7 +69,7 @@ When testing performance, all tests were conducted using the same pre-generated 
 
 ----
 
-#### [Elasticsearch](https://www.elastic.co/de/products/elasticsearch)
+### [Elasticsearch](https://www.elastic.co/de/products/elasticsearch)
 
 > Distributed, scalable, and highly available. Real-time search and analytics capabilities. Sophisticated RESTful API. Real-Time Data. Real-Time Advanced Analytics. Full-Text Search. Document-Oriented. Schema-Free.
 

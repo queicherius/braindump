@@ -8,6 +8,8 @@
 apt-get install goaccess
 ```
 
+---
+
 ### Parse nginx logs
 
 ```bash
@@ -15,6 +17,8 @@ goaccess -f /var/log/nginx/access.log
 ```
 
 When asked for a format, choose `NCSA Combined Log Format`.
+
+---
 
 ### Parse haproxy logs
 
