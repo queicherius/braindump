@@ -1,4 +1,4 @@
-# Https & caching for Node.JS
+# Https & Caching for Node.JS
 
 Here, we're using [Let's Encrypt](https://letsencrypt.org/) for certificates, [Nginx](https://www.nginx.com/) as a [TLS Termination proxy](https://en.wikipedia.org/wiki/TLS_termination_proxy) and [Varnish](https://www.varnish-cache.org) for caching. Assuming the domain name `mydomain.com` (you have to change that) and your Node.JS app is running on port `8080` (but you can change that!).
 
@@ -118,31 +118,50 @@ crontab -e
 apt-get install varnish
 ```
 
-**`/etc/nginx/sites-enabled/default`**
+**`/etc/varnish/default.vcl`**
 
 ```nginxconf
-# Ensure that the default values are in here
+vcl 4.0;
+
+# Point to the content server
 backend default {
-    .host = "127.0.0.1";
-    .port = "8080";
+  .host = "127.0.0.1";
+  .port = "8080";
+  .connect_timeout = 1s;
+  .first_byte_timeout = 10s;
+  .between_bytes_timeout = 10s;
+  .max_connections = 500;
+}
+
+# Add a header to the response indicating the caching
+sub vcl_deliver {
+  if (obj.hits > 0) {
+    set resp.http.X-Cache = "HIT";
+  } else {
+    set resp.http.X-Cache = "MISS";
+  }
 }
 ```
 
-**`/etc/nginx/sites-enabled/default`**
+**`/etc/default/varnish`**
+
+Make sure that "Alternative 2" is uncommented and Varnish is listening on the default port (6081).
 
 ```nginxconf
-# Make sure that "Alternative 2" is used and 
-# Varnish is listening on the default port 6081
 DAEMON_OPTS="-a :6081
  ...
 ```
 
 **`/etc/nginx/sites-enabled/default`**
 
+Instead of pointing nginx to the backend server directly, point the location to the varnish server instead (which then in turn points to the backend server).
+
 ```nginxconf
   location / {
     proxy_pass http://127.0.0.1:6081;
 ```
+
+After the configuration is complete, the services have to be restarted.
 
 ```bash
 service varnish restart
