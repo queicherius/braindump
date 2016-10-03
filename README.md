@@ -6,6 +6,7 @@
 
 - [Https & Caching for Node.JS (using Let's Encrypt, Nginx & Varnish)](./https-and-caching-for-nodejs.md)
 - [Simple mail redirection server](./simple-mail-redirection-server.md)
+- [Log parsing with GoAccess](./log-parsing-with-goaccess.md)
 
 **Experiments**
 
