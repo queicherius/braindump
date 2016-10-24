@@ -75,7 +75,27 @@ server {
 
   # --- SERVICE CONFIGURATION -----------------------------
 
+  # Compress all output labeled with one of the following MIME-types
   gzip on;
+  gzip_types
+    application/atom+xml
+    application/javascript
+    application/x-javascript
+    text/javascript
+    application/json
+    application/rss+xml
+    application/vnd.ms-fontobject
+    application/x-font-ttf
+    application/x-web-app-manifest+json
+    application/xhtml+xml
+    application/xml
+    font/opentype
+    image/svg+xml
+    image/x-icon
+    text/xml
+    text/css
+    text/plain
+    text/x-component;
 
   location / {
     proxy_pass http://127.0.0.1:8080;

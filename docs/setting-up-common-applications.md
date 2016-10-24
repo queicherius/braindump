@@ -180,7 +180,6 @@ apt-get install python
 
 ```bash
 apt-get install mysql-server
-sudo mysql_install_db
 sudo /usr/bin/mysql_secure_installation # "yes" to all questions
 ```
 
