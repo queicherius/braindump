@@ -63,6 +63,47 @@ server {
   resolver 8.8.8.8;
   ssl_stapling on;
   ssl_trusted_certificate /etc/letsencrypt/live/mydomain.com/fullchain.pem;
+server {
+  listen 80;
+  server_name mydomain.com www.mydomain.com;
+
+  # Enable HTTP Strict Transport Security to avoid ssl stripping
+  add_header Strict-Transport-Security "max-age=31622400; includeSubDomains; preload" always;
+
+  # Always redirect traffic to https
+  return 301 https://$server_name$request_uri;
+}
+
+server {
+  listen 443 ssl;
+  server_name mydomain.com www.mydomain.com;
+
+  # --- SSL CONFIGURATION ---------------------------------
+
+  # SSL certificate
+  ssl_certificate /etc/letsencrypt/live/mydomain.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/mydomain.com/privkey.pem;
+
+  # Enable session resumption to improve https performance
+  ssl_session_cache shared:SSL:50m;
+  ssl_session_timeout 5m;
+
+  # Diffie-Hellman parameter for DHE ciphersuites
+  ssl_dhparam /etc/letsencrypt/live/mydomain.com/dhparam.pem;
+
+  # Enables server-side protection from BEAST attacks
+  ssl_prefer_server_ciphers on;
+
+  # Disable SSLv3 since it's less secure then TLS
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+
+  # Ciphers chosen for forward secrecy and compatibility
+  ssl_ciphers "ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES128-SHA256:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA:DES-CBC3-SHA:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!PSK:!RC4";
+
+  # Enable OCSP stapling
+  resolver 8.8.8.8;
+  ssl_stapling on;
+  ssl_trusted_certificate /etc/letsencrypt/live/mydomain.com/fullchain.pem;
 
   # Enable HTTP Strict Transport Security to avoid ssl stripping
   add_header Strict-Transport-Security "max-age=31622400; includeSubDomains; preload" always;
@@ -73,9 +114,18 @@ server {
     root /etc/letsencrypt/webroot;
   }
 
-  # --- SERVICE CONFIGURATION -----------------------------
+  # --- REDIRECT WWW TO NON-WWW ---------------------------
 
-  # Compress all output labeled with one of the following MIME-types
+  if ($host = "www.mydomain.com") {
+    rewrite ^ https://$server_name$request_uri? redirect;
+  }
+
+  # --- STRIP TRAILING SLASHES ----------------------------
+
+  rewrite ^/(.*)/$ /$1 permanent;
+
+  # --- ENABLE GZIP COMPRESSION ---------------------------
+
   gzip on;
   gzip_types
     application/atom+xml
@@ -96,6 +146,11 @@ server {
     text/css
     text/plain
     text/x-component;
+
+  # --- SERVICE CONFIGURATION -----------------------------
+
+  root /var/www/mydomain/public;
+  index index.php;
 
   location / {
     proxy_pass http://127.0.0.1:8080;
