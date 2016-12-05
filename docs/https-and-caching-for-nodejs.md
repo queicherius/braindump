@@ -108,9 +108,6 @@ server {
 
   # --- SERVICE CONFIGURATION -----------------------------
 
-  root /var/www/mydomain/public;
-  index index.php;
-
   location / {
     proxy_pass http://127.0.0.1:8080;
     proxy_set_header X-Real-IP $remote_addr;
