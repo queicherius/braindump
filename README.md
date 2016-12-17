@@ -11,6 +11,7 @@
 - [Log parsing with GoAccess](./docs/log-parsing-with-goaccess.md)
 - [Free backup service for ESXi](./docs/free-backup-service-for-esxi.md)
 - [Resize disk of a Linux LVM](./docs/resize-disk-of-a-linux-lvm.md)
+- [npm package recommendations](./docs/npm-recommendations.md)
 
 **Experiments**
 
